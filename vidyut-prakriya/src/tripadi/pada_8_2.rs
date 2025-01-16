@@ -1,4 +1,4 @@
-use std::sync::OnceLock;
+use std::sync::LazyLock;
 
 use crate::args::Agama as A;
 use crate::args::Aupadeshika as Au;
@@ -26,9 +26,9 @@ const BASH: Set = s(&["baS"]);
 const JHAL_TO_JASH_EXCEPTIONS: Set = Set::from("cSsh");
 const HASH: Set = s(&["haS"]);
 
-static BASH_TO_BHAZ: OnceLock<Map> = OnceLock::new();
-static JHAL_TO_JASH: OnceLock<Map> = OnceLock::new();
-static CU_TO_KU: OnceLock<Map> = OnceLock::new();
+static BASH_TO_BHAZ: LazyLock<Map> = LazyLock::new(|| map("baS", "Baz"));
+static JHAL_TO_JASH: LazyLock<Map> = LazyLock::new(|| map("Jal", "jaS"));
+static CU_TO_KU: LazyLock<Map> = LazyLock::new(|| map("cu~", "ku~"));
 
 fn do_ru_adesha(rule: impl Into<Rule>, p: &mut Prakriya, i: usize) {
     p.run_at(rule, i, |t| {
