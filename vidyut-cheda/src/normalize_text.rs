@@ -1,4 +1,4 @@
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
 use regex::Regex;
 
@@ -9,8 +9,7 @@ use regex::Regex;
 /// 2. Delete all whitespace spans.
 /// 3. Separate all remaining spans with a single " ".
 pub fn normalize(text: &str) -> String {
-    static RE: LazyLock<Regex> =
-        LazyLock::new(|| Regex::new(r"([a-zA-Z']+)|(\s+)|([^a-zA-Z']+)").expect("always defined"));
+    static RE: OnceLock<Regex> = OnceLock::new();
 
     let re =
         RE.get_or_init(|| Regex::new(r"([a-zA-Z']+)|(\s+)|([^a-zA-Z']+)").expect("always defined"));

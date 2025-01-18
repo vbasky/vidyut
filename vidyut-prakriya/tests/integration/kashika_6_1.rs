@@ -1,5 +1,5 @@
 extern crate test_utils;
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
 use test_utils::*;
 use vidyut_prakriya::args::BaseKrt as Krt;
@@ -10,7 +10,11 @@ use vidyut_prakriya::args::Taddhita as T;
 use vidyut_prakriya::args::TaddhitaArtha::*;
 use vidyut_prakriya::args::*;
 
-static S: LazyLock<Tester> = LazyLock::new(|| Tester::with_svara_rules());
+static S: OnceLock<Tester> = OnceLock::new();
+
+fn get_tester() -> &'static Tester {
+    S.get_or_init(|| Tester::with_svara_rules())
+}
 
 #[test]
 fn sutra_6_1_1() {

@@ -1,5 +1,5 @@
 extern crate test_utils;
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
 use test_utils::*;
 use vidyut_prakriya::args::BaseKrt as Krt;
@@ -10,7 +10,7 @@ use vidyut_prakriya::args::Taddhita as T;
 use vidyut_prakriya::args::TaddhitaArtha as TA;
 use vidyut_prakriya::args::*;
 
-static S: LazyLock<Tester> = LazyLock::new(|| Tester::with_svara_rules());
+static S: OnceLock<Tester> = OnceLock::new();
 
 fn sanadi(p: Pratipadika, s: Sanadi) -> Dhatu {
     Dhatu::nama(p, Some(s))

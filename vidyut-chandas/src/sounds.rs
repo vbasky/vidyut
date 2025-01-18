@@ -1,8 +1,8 @@
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
-static HRASVA: LazyLock<Set> = LazyLock::new(|| Set::from("aiufx"));
-static AC: LazyLock<Set> = LazyLock::new(|| Set::from("aAiIuUfFxXeEoO"));
-static HAL: LazyLock<Set> = LazyLock::new(|| Set::from("kKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzshL"));
+static HRASVA: OnceLock<Set> = OnceLock::new();
+static AC: OnceLock<Set> = OnceLock::new();
+static HAL: OnceLock<Set> = OnceLock::new();
 
 type Sound = char;
 

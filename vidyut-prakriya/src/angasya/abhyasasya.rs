@@ -6,7 +6,7 @@ abhyasasya
 Runs rules that modify the abhyāsa.
 */
 
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
 use crate::args::Agama as A;
 use crate::args::Agama;
@@ -34,7 +34,7 @@ const KHAY: Set = s(&["Kay"]);
 const F_HAL: Set = s(&["f hal"]);
 const PU_YAN_J: Set = s(&["pu~", "yaR", "j"]);
 
-static KUH_CU: LazyLock<Map> = LazyLock::new(|| map("ku~ h", "cu~"));
+static KUH_CU: OnceLock<Map> = OnceLock::new();
 
 /// Simplifies the abhyasa per 7.4.60.
 fn try_haladi(text: &str) -> TermString {

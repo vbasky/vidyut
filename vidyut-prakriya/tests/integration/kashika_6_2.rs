@@ -1,9 +1,13 @@
 extern crate test_utils;
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
 use test_utils::*;
 
-static S: LazyLock<Tester> = LazyLock::new(|| Tester::with_svara_rules());
+static S: OnceLock<Tester> = OnceLock::new();
+
+fn get_tester() -> &'static Tester {
+    S.get_or_init(|| Tester::with_svara_rules())
+}
 
 #[test]
 fn sutra_6_2_27() {

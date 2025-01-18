@@ -1,4 +1,4 @@
-use std::sync::LazyLock;
+use std::sync::OnceLock;
 
 use crate::args::Aupadeshika as Au;
 use crate::args::Gana;
@@ -28,9 +28,9 @@ const YAY: Set = s(&["yay"]);
 const JHAY: Set = s(&["Jay"]);
 const AT: Set = s(&["aw"]);
 
-static JHAL_TO_CAR: LazyLock<Map> = LazyLock::new(|| map("Jal", "car"));
-static JHAL_TO_JASH: LazyLock<Map> = LazyLock::new(|| map("Jal", "jaS"));
-static JHAL_TO_JASH_CAR: LazyLock<Map> = LazyLock::new(|| map("Jal", "jaS car"));
+static JHAL_TO_CAR: OnceLock<Map> = OnceLock::new();
+static JHAL_TO_JASH: OnceLock<Map> = OnceLock::new();
+static JHAL_TO_JASH_CAR: OnceLock<Map> = OnceLock::new();
 
 /// Runs rules that change `n` to `R`.
 /// Example: krInAti -> krIRAti.
